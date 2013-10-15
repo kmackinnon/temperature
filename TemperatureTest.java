@@ -4,16 +4,12 @@
  * Unit Testing Temperature class
  */
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class TemperatureTest {
-	
-	@Rule
-	public ExpectedException exception = ExpectedException.none();
 
 	@Test
 	public void testGetUnits() {
@@ -32,15 +28,14 @@ public class TemperatureTest {
 
 	}
 
-	@Test 
+	@Test
 	public void testGetValue() {
-		
+
 		/*
 		 * My test data tests the lower boundary conditions of each temperature
-		 * scale as well as a value somewhere in the middle.
-		 * 1. Test a temperature below the minimum temperature.
-		 * 2. Test the minimum temperature.
-		 * 3. Test an average temperature.
+		 * scale as well as a value somewhere in the middle. 1. Test a
+		 * temperature below the minimum temperature. 2. Test the minimum
+		 * temperature. 3. Test an average temperature.
 		 */
 
 		Temperature belowMinTemp;
@@ -52,12 +47,13 @@ public class TemperatureTest {
 		// Celsius
 		try {
 			belowMinTemp = new Temperature(-273.16, Temperature.Units.CELSIUS);
-		} catch(IllegalArgumentException ex){
-			assertTrue("Cannot have celsius lower than -273.15", ex instanceof IllegalArgumentException);
+		} catch (IllegalArgumentException ex) {
+			assertTrue("Cannot have celsius lower than -273.15",
+					ex instanceof IllegalArgumentException);
 		}
 		minimumTemp = new Temperature(-273.15, Temperature.Units.CELSIUS);
 		averageTemp = new Temperature(33.3333, Temperature.Units.CELSIUS);
-		
+
 		assertTrue("Minimum Celsius should be -273.15",
 				minimumTemp.getValue() == -273.15);
 		assertEquals("An average temperature in Celsius", 33.3333,
@@ -65,9 +61,11 @@ public class TemperatureTest {
 
 		// Fahrenheit
 		try {
-			belowMinTemp = new Temperature(-459.68, Temperature.Units.FAHRENHEIT);
-		} catch (IllegalArgumentException ex){
-			assertTrue("Cannot have fahrenheit below -459.67", ex instanceof IllegalArgumentException);
+			belowMinTemp = new Temperature(-459.68,
+					Temperature.Units.FAHRENHEIT);
+		} catch (IllegalArgumentException ex) {
+			assertTrue("Cannot have fahrenheit below -459.67",
+					ex instanceof IllegalArgumentException);
 		}
 		minimumTemp = new Temperature(-459.67, Temperature.Units.FAHRENHEIT);
 		averageTemp = new Temperature(99.9999, Temperature.Units.FAHRENHEIT);
@@ -80,14 +78,14 @@ public class TemperatureTest {
 		// Kelvin
 		try {
 			belowMinTemp = new Temperature(-0.00001, Temperature.Units.KELVIN);
-		} catch (IllegalArgumentException ex){
-			assertTrue("Cannot have negative kelvin", ex instanceof IllegalArgumentException);
+		} catch (IllegalArgumentException ex) {
+			assertTrue("Cannot have negative kelvin",
+					ex instanceof IllegalArgumentException);
 		}
 		minimumTemp = new Temperature(0, Temperature.Units.KELVIN);
 		averageTemp = new Temperature(300, Temperature.Units.KELVIN);
-		
-		assertTrue("Minimum Kelvin should be zero",
-				minimumTemp.getValue() == 0);
+
+		assertTrue("Minimum Kelvin should be zero", minimumTemp.getValue() == 0);
 		assertEquals("An average temperature in Kelvin", 300,
 				averageTemp.getValue(), THRESHOLD);
 
